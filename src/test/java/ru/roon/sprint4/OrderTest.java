@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import ru.roon.pom.*;
 
 import static org.junit.Assert.assertTrue;
@@ -56,7 +56,7 @@ public class OrderTest {
 
     @Before
     public void setUp() {
-        driver = new FirefoxDriver();
+        driver = new ChromeDriver();
     }
 
     @Test
