@@ -1,4 +1,4 @@
-package ru.roon.sprint4;
+package ru.roon.sprint4.tests;
 
 import org.junit.After;
 import org.junit.Before;
@@ -25,7 +25,7 @@ public class ScooterFAQTest {
         this.expectedAnswerFAQ = expectedAnswerFAQ;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Соответсвие ответов вопросам в разделе FAQ. Тестовые данные: {0} {1} {2} {3} {4} {5} {6} {7}")
     public static Object[][] getCredentials() {
         return new Object[][]{
                 {"Сколько это стоит? И как оплатить?", "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},

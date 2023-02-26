@@ -1,4 +1,4 @@
-package ru.roon.sprint4;
+package ru.roon.sprint4.tests;
 
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +25,11 @@ public class OrderTest {
     private final String rentalPeriod;
     private final String commentForCourier;
     private final String color;
+    private HomePageScooter homePage;
+    private FirstPageOrder firstPageOrder;
+    private SecondPageOrder secondPageOrder;
+    private OrderConfirmationPopup orderConfirmationPopup;
+    private CreatedOrderPopup createdOrderPopup;
 
     public OrderTest(String firstName,
                      String lastName,
@@ -46,7 +51,7 @@ public class OrderTest {
         this.color = color;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Оформление заказа. Тестовые данные: {0} {1}")
     public static Object[][] getData() {
         return new Object[][]{
                 {"Петр", "Петров", "Москва", "Черкизовская", "+79999999999", "01.01.2023", "сутки", "Комментарий1", "чёрный жемчуг"},
@@ -57,18 +62,18 @@ public class OrderTest {
     @Before
     public void setUp() {
         driver = new ChromeDriver();
+        driver.get(URL);
+        homePage = new HomePageScooter(driver);
+        firstPageOrder = new FirstPageOrder(driver);
+        secondPageOrder = new SecondPageOrder(driver);
+        orderConfirmationPopup = new OrderConfirmationPopup(driver);
+        createdOrderPopup = new CreatedOrderPopup(driver);
+        homePage.acceptCookies();
     }
 
     @Test
     public void orderFromTopButton() {
-        driver.get(URL);
-        HomePageScooter objHomePage = new HomePageScooter(driver);
-        FirstPageOrder firstPageOrder = new FirstPageOrder(driver);
-        SecondPageOrder secondPageOrder = new SecondPageOrder(driver);
-        OrderConfirmationPopup orderConfirmationPopup = new OrderConfirmationPopup(driver);
-        CreatedOrderPopup createdOrderPopup = new CreatedOrderPopup(driver);
-        objHomePage.acceptCookies();
-        objHomePage.clickTopOrderButton();
+        homePage.clickTopOrderButton();
         firstPageOrder.fillAndComplete(firstName, lastName, address, metroStation, phoneNumber);
         secondPageOrder.fillAndComplete(deliveryDate, rentalPeriod, commentForCourier, color);
         orderConfirmationPopup.confirmOrder();
@@ -77,13 +82,6 @@ public class OrderTest {
 
     @Test
     public void orderFromDownButton() {
-        driver.get(URL);
-        HomePageScooter homePage = new HomePageScooter(driver);
-        FirstPageOrder firstPageOrder = new FirstPageOrder(driver);
-        SecondPageOrder secondPageOrder = new SecondPageOrder(driver);
-        OrderConfirmationPopup orderConfirmationPopup = new OrderConfirmationPopup(driver);
-        CreatedOrderPopup createdOrderPopup = new CreatedOrderPopup(driver);
-        homePage.acceptCookies();
         homePage.clickDownOrderButton();
         firstPageOrder.fillAndComplete(firstName, lastName, address, metroStation, phoneNumber);
         secondPageOrder.fillAndComplete(deliveryDate, rentalPeriod, commentForCourier, color);

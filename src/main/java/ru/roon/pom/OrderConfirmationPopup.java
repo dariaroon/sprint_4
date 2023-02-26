@@ -17,8 +17,6 @@ public class OrderConfirmationPopup {
         this.driver = driver;
     }
 
-
-
     public void confirmOrder() {
         waitLoadedOrderConfirmationPopup();
         driver.findElement(yesButton).click();
